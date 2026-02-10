@@ -35,7 +35,7 @@ Make Grub
 Synopsis
 ========
 
-mkgrub *[options]* *args*
+mkgrub *[options]* *out*
 
 
 Description
@@ -44,48 +44,45 @@ Description
 Produces a GRUB bootloader.
 
 
+Arguments
+============
+
+- *out*                 Output directory or GRUB binary path.
+                        It defaults to './BOOT<arch-code>.<platform>'.
+
+
 Options
 =======
 
--C <grub-cfg>        Whether to use a specific configuration
-                     file to embed in GRUB.
-                     Default: '${grub_cfg}'
--g                   Pass to auto-generate a configuration
-                     file using mkgrubcfg.
-                     Default: '${auto_cfg}'
--p                   Whether a plain text configuration file
-                     in the GRUB binary directory is used.
-                     Default: '${plain_text}'.
--b <boot-method>     Boot method (mbr, eltorito, efi).
-                     Default: '${boot_method}'
--a <arch-name>       Architecture ('aarch64', 'arm', 'armv7h',
-                                   'armv6', 'i386', 'x86_64')
-                     Default: '${arch_name}'
--r                   Disable configuration file integrity
-                     check.
-                     Default: '${cfg_checksum}'
+-C grub-cfg              Whether to use a specific configuration
+                         file to embed in GRUB.
+-g                       Pass to auto-generate a configuration
+                         file using mkgrubcfg.
+-p                       Whether a plain text configuration file
+                         in the GRUB binary directory is used
+                         rather than be embedded in the binary.
+-b boot-method           Boot method ('mbr', 'eltorito', 'efi').
+-a arch-name             Architecture ('aarch64', 'arm', 'armv7h',
+                                       'armv6', 'i386', 'x86_64')
+-r                       Disable configuration file integrity
+                         check.
 
 
 mkgrubcfg options:
 =====================
 
--L <entry-name>      Sets an alternative entry name
-                     Default: '${entry_name}'
--l <short-name>      Short entry name.
-                     Default: '${short_name}'
--U <fsuuid>          Add an UUID for an encrypted boot disk.
--u <fsuuid>          Add an UUID for an unencrypted boot disk.
--K <kernel>          Add the path of a kernel inside a boot disk.
--k <kernel-sum>      SHA256 sums of the kernel.
--I <initrd>          Path of the initrd inside the
-                     boot disks.
--i <initrd-sum>      SHA256 sum of the initrd.
--e <boot-key>        Path of the encryption key inside
-                     the boot disk.
-                     Set to "" for unencrypted disks.
-
-  <out>         Output directory or GRUB binary path.
-                Default: ./BOOT<arch-code>.<platform>
+-L entry-name           Sets an alternative entry name
+-l short-name           Short entry name.
+-U fsuuid               Add an UUID for an encrypted boot disk.
+-u fsuuid               Add an UUID for an unencrypted boot disk.
+-K kernel               Add the path of a kernel inside a boot disk.
+-k kernel-sum           SHA256 sums of the kernel.
+-I initrd               Path of the initrd inside the
+                        boot disks.
+-i initrd-sum           SHA256 sum of the initrd.
+-e boot-key             Path of the encryption key inside
+                        the boot disk.
+                        Set to "" for unencrypted disks.
 
 
 Application options
