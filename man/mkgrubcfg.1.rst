@@ -22,26 +22,26 @@
 
 
 =================
-mkgrub
+mkgrubcfg
 =================
 
 --------------------------------------------------------------
-Make Grub
+Make Grub Configuration
 --------------------------------------------------------------
-:Version: mkgrub |version|
+:Version: mkgrubcfg |version|
 :Manual section: 1
 
 
 Synopsis
 ========
 
-mkgrub *[options]* *out*
+mkgrubcfg *[options]* *out*
 
 
 Description
 ===========
 
-Produces a GRUB bootloader.
+Produces a GRUB bootloader configuration.
 
 
 Arguments
@@ -107,9 +107,12 @@ Copyright Pellegrino Prevete. AGPL-3.0.
 See also
 ========
 
-* mkgrubcfg
+* mkgrub
 * mksyslinux
+* mksyslinuxcfg
 * mksystemd-boot
+* mksystemd-bootcfg
 * mkbootloader
+* mkbootloadercfg
 
 .. include:: variables.rst
