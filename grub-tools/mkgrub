@@ -364,9 +364,7 @@ _set_overrides() {
   elif [[ -z "${color}" ]]; then
     color="n"
   fi
-  if [[ "$(_get \
-             "grub" \
-             "cfg")" == "" ]]; then
+  if [[ "${grub_cfg}" == "" ]]; then
     _grub_cfg_auto_detect
   fi
 }
@@ -375,6 +373,7 @@ _set_overrides() {
 # $1: exit status number.
 _usage() {
   local \
+    _exit="${1}" \
     _usage_text
   IFS='' \
     read \
@@ -382,52 +381,57 @@ _usage() {
       -d '' \
       _usage_text << \
         ENDUSAGETEXT || true
-usage: $(_get "app" "name") [options] <out_file>
+usage:
+
+${app_name}
+  [options]
+  <out-file>
+
   options:
-     -C <grub_cfg>        Whether to use a specific configuration
+     -C <grub-cfg>        Whether to use a specific configuration
                           file to embed in GRUB.
-		          Default: '$(_get "grub" "cfg")'
+                          Default: '${grub_cfg}'
      -g                   Pass to auto-generate a configuration
                           file using mkgrubcfg.
-                          Default: '$(_get "auto" "cfg")'
+                          Default: '${auto_cfg}'
      -p                   Whether a plain text configuration file
                           in the GRUB binary directory is used.
-			  Default: '$(_get "plain" "text")'.
-     -b <boot_method>     Boot method (mbr, eltorito, efi).
-			  Default: '$(_get "boot" "method")'
-     -a <arch_name>       Architecture ('aarch64', 'arm', 'armv7h',
+                          Default: '${plain_text}'.
+     -b <boot-method>     Boot method (mbr, eltorito, efi).
+                          Default: '${boot_method}'
+     -a <arch-name>       Architecture ('aarch64', 'arm', 'armv7h',
                                         'armv6', 'i386', 'x86_64')
-			  Default: '$(_get "arch" "name")'
+                          Default: '${arch_name}'
      -r                   Disable configuration file integrity
                           check.
-                          Default: '$(_get "cfg" "checksum")'
+                          Default: '${cfg_checksum}'
      -h                   This message.
      -c                   Enable color output
      -v                   Enable verbose output
   mkgrubcfg options:
-     -L <entry_name>      Sets an alternative entry name
-			  Default: '$(_get "entry" "name")'
-     -l <short_name>      Short entry name.
-			  Default: '$(_get "short" "name")'
+     -L <entry-name>      Sets an alternative entry name
+                          Default: '${entry_name}'
+     -l <short-name>      Short entry name.
+                          Default: '${short_name}'
      -U <fsuuid>          Add an UUID for an encrypted boot disk.
      -u <fsuuid>          Add an UUID for an unencrypted boot disk.
      -K <kernel>          Add the path of a kernel inside a boot disk.
-     -k <kernel_sum>      SHA256 sums of the kernel.
+     -k <kernel-sum>      SHA256 sums of the kernel.
      -I <initrd>          Path of the initrd inside the
                           boot disks.
-     -i <initrd_sum>      SHA256 sum of the initrd.
-     -e <boot_key>        Path of the encryption key inside
+     -i <initrd-sum>      SHA256 sum of the initrd.
+     -e <boot-key>        Path of the encryption key inside
                           the boot disk.
                           Set to "" for unencrypted disks.
 
   <out>         Output directory or GRUB binary path.
-                Default: ./BOOT<arch_code>.<platform>
+                Default: ./BOOT<arch-code>.<platform>
 ENDUSAGETEXT
   _printf \
     '%s\n' \
     "${_usage_text}"
   exit \
-    "${1}"
+    "${_exit}"
 }
 
 _display_flags() {
